@@ -561,7 +561,7 @@ const callGeminiPlanGenerator = async (goal, timeframe, aiMode = 'general') => {
         // 7. Settings Modal
         const SettingsModal = ({ isOpen, onClose }) => {
             const [key, setKey] = useState("");
-            useEffect(() => { if (isOpen) setKey(localStorage.getItem('keepup_gemini_key') || DEFAULT_API_KEY); }, [isOpen]);
+            useEffect(() => {if (isOpen) setKey("");}, [isOpen]);
             const handleSave = () => { localStorage.setItem('keepup_gemini_key', key.trim()); onClose(); };
             if (!isOpen) return null;
             return (
