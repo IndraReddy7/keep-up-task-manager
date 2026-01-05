@@ -377,7 +377,7 @@
             );
         };
 
-        // 3. Smart Input
+       // 3. Smart Input
         const SmartInput = ({ onEnter }) => {
             const [inputValue, setInputValue] = useState("");
             const [suggestionIndex, setSuggestionIndex] = useState(0);
@@ -398,11 +398,18 @@
             const handleSubmit = () => {
                 if (inputValue.trim()) {
                     setIsLoading(true);
-                    onEnter(inputValue, useAI).then(() => {
-                        setIsLoading(false);
-                        setInputValue("");
-                        setTabPressCount(0);
-                    });
+                    onEnter(inputValue, useAI)
+                        .then(() => {
+                            setInputValue("");
+                            setTabPressCount(0);
+                        })
+                        .catch(err => {
+                            console.error("Task creation failed:", err);
+                        })
+                        .finally(() => {
+                            // FIXED: Ensure loading state is always reset
+                            setIsLoading(false);
+                        });
                 }
             };
 
